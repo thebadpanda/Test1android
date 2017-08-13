@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.arsenko.test1.SecondActivity"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/secondTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hi there. I'm second activity"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/secondET"
+        android:layout_below="@+id/secondTV"
+        android:text="You can write me something. I'm very lonely android-application :("/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="90dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_weight="0.07" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
