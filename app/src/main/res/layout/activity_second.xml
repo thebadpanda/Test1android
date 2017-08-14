@@ -12,13 +12,20 @@
         android:id="@+id/secondTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hi there. I'm second activity"/>
+        android:text="Hi there. I'm second activity" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/secondTV"
+        android:text=""/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/secondET"
-        android:layout_below="@+id/secondTV"
+        android:layout_below="@+id/text"
         android:text="You can write me something. I'm very lonely android-application :("/>
 
     <ImageView
