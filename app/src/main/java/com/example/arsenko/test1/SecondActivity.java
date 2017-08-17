@@ -18,6 +18,7 @@ public class SecondActivity extends Activity implements View.OnClickListener {
     EditText newET;
     Button saveBtn, showBtn;
     SharedPreferences shPref;
+    EditText savedTx;
 
     final String SAVED_TEXT = "saved_text";
 
@@ -54,10 +55,9 @@ public class SecondActivity extends Activity implements View.OnClickListener {
         if(view == findViewById(R.id.showBtn)){
             shPref = getPreferences(MODE_PRIVATE);
             String savedText = shPref.getString(SAVED_TEXT, "");
-            newET.setText(savedText);
+            savedTx.setText(savedText);
             Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
         }
-
     }
 
 }
