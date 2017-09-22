@@ -8,11 +8,11 @@
     tools:context="com.example.arsenko.test1.SecondActivity"
     android:weightSum="1">
 
-    <TextView
-        android:id="@+id/secondTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hi there. I'm second activity" />
+    <!--<TextView-->
+        <!--android:id="@+id/secondTV"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Hi there. I'm second activity" />-->
 
     <TextView
         android:id="@+id/text"
@@ -21,22 +21,22 @@
         android:layout_below="@+id/secondTV"
         android:text=""/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/secondET"
-        android:layout_below="@+id/text"
-        android:text="Waazaaaaaap ?!"/>
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/secondET"-->
+        <!--android:layout_below="@+id/text"-->
+        <!--android:text="Waazaaaaaap ?!"/>-->
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="90dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_weight="0.07" />
+    <!--<ImageView-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="90dp"-->
+        <!--android:src="@mipmap/ic_launcher"-->
+        <!--android:layout_weight="0.07" />-->
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

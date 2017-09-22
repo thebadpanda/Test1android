@@ -17,17 +17,19 @@ public class MainActivity extends Activity {
     public static EditText et;
     public static Button bt;
     public static Button secondActBt;
+    public static Button recycleViewBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv = (TextView) findViewById(R.id.myTV);
+        //tv = (TextView) findViewById(R.id.myTV);
         //tv.setText("Hello, Android");
 
         et = (EditText) findViewById(R.id.myET);
         bt = (Button) findViewById(R.id.myBT);
         secondActBt = (Button) findViewById(R.id.myBT2);
+        recycleViewBtn = (Button) findViewById(R.id.resycleViewBtn);
 
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,11 +42,21 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                intent.putExtra("text",et.getText().toString());
+                intent.putExtra("text", et.getText().toString());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
-    }
 
+        recycleViewBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, RecycleViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
 }

@@ -33,13 +33,13 @@ public class SecondActivity extends Activity implements View.OnClickListener {
 
         newET = (EditText) findViewById(R.id.newET);
 
+        savedTx = (EditText) findViewById(R.id.savedTx);
+
         saveBtn = (Button) findViewById(R.id.saveBtn);
         saveBtn.setOnClickListener(this);
 
         showBtn  =(Button) findViewById(R.id.showBtn);
         showBtn.setOnClickListener(this);
-
-
     }
 
     @Override
