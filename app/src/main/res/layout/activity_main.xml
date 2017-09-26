@@ -12,7 +12,8 @@
         android:layout_height="80dp"
         android:id="@+id/myET"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:inputType="number"/>
 
     <ImageView
         android:layout_width="100dp"
@@ -44,9 +45,40 @@
         android:layout_height="wrap_content"
         android:id="@+id/resycleViewBtn"
         android:text="personal list"
-        android:layout_below="@+id/myBT2"
-        android:layout_alignEnd="@+id/myBT2"
-        android:layout_marginTop="26dp" />
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/myBT"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/songName"
+        android:text="Arctic Monkeys - Old Yellow Bricks"
+        android:textAlignment="center"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_below="@+id/resycleViewBtn"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/startServiceBtn"
+        android:text="Play"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="12dp"
+        android:layout_below="@+id/resycleViewBtn"
+        android:layout_toStartOf="@+id/myBT2" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/stopServiceBtn"
+        android:text="Stop"
+        android:layout_alignBaseline="@+id/startServiceBtn"
+        android:layout_alignBottom="@+id/startServiceBtn"
+        android:layout_toEndOf="@+id/myBT"
+        android:layout_marginStart="15dp" />
 
 
 
