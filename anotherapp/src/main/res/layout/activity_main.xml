@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.myapplication.MainActivity">
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/aidlStartBtn"
+        android:text="Start aidl service"
+        android:onClick="StartOnClick"
+        android:layout_alignBaseline="@+id/aidlStopBtn"
+        android:layout_alignBottom="@+id/aidlStopBtn"
+        android:layout_toStartOf="@+id/aidlStopBtn"
+        android:layout_marginEnd="18dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/aidlStopBtn"
+        android:onClick="StopOnClick"
+        android:text="Stop aidl service"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="37dp"
+        android:layout_marginTop="24dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/eText"
+        android:text="chu va chi"
+        android:layout_below="@+id/aidlStartBtn"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/syncBtn"
+        android:text="synchronise"
+        android:onClick="SyncOnClick"
+        android:layout_below="@+id/eText"
+        android:layout_alignStart="@+id/aidlStartBtn"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="26dp" />
+
+</RelativeLayout>

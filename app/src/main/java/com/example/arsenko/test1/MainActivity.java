@@ -5,12 +5,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.IBinder;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,15 +15,13 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-    public static TextView tv;
-    public static EditText et;
-    public static Button bt;
-    public static Button secondActBt;
-    public static Button recycleViewBtn;
-    public static Button startServiceBtn;
-    public static Button stopServiceBtn;
-
-
+    public TextView tv;
+    public EditText et;
+    public Button bt;
+    public Button secondActBt;
+    public Button recycleViewBtn;
+    public Button startServiceBtn;
+    public Button stopServiceBtn;
 
 
     @Override
@@ -37,17 +31,12 @@ public class MainActivity extends Activity {
         //tv = (TextView) findViewById(R.id.myTV);
         //tv.setText("Hello, Android");
 
-        et = (EditText) findViewById(R.id.myET);
-        bt = (Button) findViewById(R.id.myBT);
-        secondActBt = (Button) findViewById(R.id.myBT2);
-        recycleViewBtn = (Button) findViewById(R.id.resycleViewBtn);
-        startServiceBtn = (Button) findViewById(R.id.startServiceBtn);
-        stopServiceBtn = (Button) findViewById(R.id.stopServiceBtn);
-
-
-
-
-//        bindService(new Intent(MainActivity.this, MyService.class), connection ,Context.BIND_AUTO_CREATE );
+        et = findViewById(R.id.myET);
+        bt = findViewById(R.id.myBT);
+        secondActBt = findViewById(R.id.myBT2);
+        recycleViewBtn = findViewById(R.id.resycleViewBtn);
+        startServiceBtn = findViewById(R.id.startServiceBtn);
+        stopServiceBtn = findViewById(R.id.stopServiceBtn);
 
 
            bt.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +69,8 @@ public class MainActivity extends Activity {
         startServiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startService(new Intent(MainActivity.this, MyService.class));
+                //startService(new Intent(MainActivity.this, MyService.class));
+                bindService(new Intent(MainActivity.this, MyService.class), connection ,Context.BIND_AUTO_CREATE );
             }
 
         });
@@ -90,9 +80,9 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = (new Intent(MainActivity.this, MyService.class));
                 stopService(intent);
-                if(bindFlag) {
+                if(wasBound) {
                     unbindService(connection);
-                    bindFlag = false;
+                    wasBound = false;
                     Toast.makeText(MainActivity.this, "disconnected", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -100,50 +90,35 @@ public class MainActivity extends Activity {
 
     }
 
-    MyService myService = null;
-    boolean bindFlag;   // флег. чи виклакали бінд в сервісі
+    //MyService myService = null;
+    boolean wasBound;   // флег, чи законекчені сервіс і актівіті
 
 
     private ServiceConnection connection  = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
 
-            MyService.MyBinder binder = (MyService.MyBinder) service;
-            myService = binder.getService();
-            bindFlag = true;
+           // MyService.MyBinder binder = (MyService.MyBinder) service;
+            //myService = binder.getService();
+            Toast.makeText(MainActivity.this, "Service connected", Toast.LENGTH_SHORT).show();
+            wasBound = true;
 
         }
 
         @Override
         public void onServiceDisconnected(ComponentName className) {
             Toast.makeText(MainActivity.this, "Service disconnected", Toast.LENGTH_SHORT).show();
-            bindFlag = false;
+            wasBound = false;
 
         }
     };
 
     @Override
-    protected void onStart(){
-        super.onStart();
-        bindService(new Intent(MainActivity.this, MyService.class), connection ,Context.BIND_AUTO_CREATE );
-
-    }
-
-    @Override
-    protected void onStop(){
-        super.onStop();
-        if(bindFlag) {
-            unbindService(connection);
-            bindFlag = false;
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(bindFlag) {
+        if(wasBound) {
             unbindService(connection);
-            bindFlag = false;
+            wasBound = false;
         }
     }
 }
