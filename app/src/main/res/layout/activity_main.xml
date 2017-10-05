@@ -12,8 +12,7 @@
         android:layout_height="80dp"
         android:id="@+id/myET"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:inputType="number"/>
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="100dp"
@@ -80,7 +79,48 @@
         android:layout_toEndOf="@+id/myBT"
         android:layout_marginStart="15dp" />
 
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/aidlStartBtn"
+        android:text="Start aidl service"
+        android:onClick="StartOnClick"
+        android:layout_above="@+id/syncBtn"
+        android:layout_alignEnd="@+id/startServiceBtn" />
 
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/aidlStopBtn"
+        android:onClick="StopOnClick"
+        android:text="Stop aidl service"
+        android:layout_alignBaseline="@+id/aidlStartBtn"
+        android:layout_alignBottom="@+id/aidlStartBtn"
+        android:layout_alignStart="@+id/stopServiceBtn" />
 
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:id="@+id/syncBtn"
+        android:text="synchronise"
+        android:onClick="SyncOnClick"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id= "@+id/textView"
+        android:layout_above="@+id/aidlStartBtn"
+        android:layout_alignParentStart="true" />
+
+    <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/eText"-->
+        <!--android:text="chu va chi"-->
+        <!--android:layout_below="@+id/aidlStartBtn"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginTop="20dp" />-->
 
 </RelativeLayout>

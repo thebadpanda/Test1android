@@ -4,6 +4,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.provider.Settings;
+import android.widget.Toast;
 
 public class AIDLService extends Service {
     public AIDLService() {
@@ -11,6 +13,8 @@ public class AIDLService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
+
+        Toast.makeText(this, "bound", Toast.LENGTH_SHORT).show();
 
         return new IMyAidlInterface.Stub() {
             @Override
@@ -30,7 +34,7 @@ public class AIDLService extends Service {
     public void onCreate(){
         super.onCreate();
 
-        System.out.println("AIDL Service started");
+        Toast.makeText(this, "AIDL Service started", Toast.LENGTH_SHORT).show();
 
         new Thread(){
             @Override
@@ -39,7 +43,6 @@ public class AIDLService extends Service {
 
                 running= true;
                 while(running){
-
                     System.out.println(data);
                     try {
                         Thread.sleep(1000);
@@ -56,7 +59,7 @@ public class AIDLService extends Service {
     public void onDestroy() {
         super.onDestroy();
 
-        System.out.println("Service destroyed");
+        Toast.makeText(this, "AIDL Service destroyed", Toast.LENGTH_SHORT).show();
         running=false;
     }
     private String data ="default";

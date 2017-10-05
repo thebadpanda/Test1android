@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,14 +23,18 @@ public class MainActivity extends Activity {
     public Button recycleViewBtn;
     public Button startServiceBtn;
     public Button stopServiceBtn;
+    public Button aidlStartBtn;
+    public Button aidlStopBtn;
+    public Intent serviceIntent;
+    public Button syncBtn;
+    public TextView textView;
 
+    AIDLService aidlService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //tv = (TextView) findViewById(R.id.myTV);
-        //tv.setText("Hello, Android");
 
         et = findViewById(R.id.myET);
         bt = findViewById(R.id.myBT);
@@ -37,6 +42,14 @@ public class MainActivity extends Activity {
         recycleViewBtn = findViewById(R.id.resycleViewBtn);
         startServiceBtn = findViewById(R.id.startServiceBtn);
         stopServiceBtn = findViewById(R.id.stopServiceBtn);
+        aidlStartBtn = findViewById(R.id.aidlStartBtn);
+        aidlStopBtn = findViewById(R.id.aidlStopBtn);
+        syncBtn = findViewById(R.id.syncBtn);
+        textView = findViewById(R.id.textView);
+
+
+        serviceIntent = new Intent();
+        serviceIntent.setComponent(new ComponentName(MainActivity.this, AIDLService.class));
 
 
            bt.setOnClickListener(new View.OnClickListener() {
@@ -88,9 +101,79 @@ public class MainActivity extends Activity {
             }
         });
 
-    }
+        aidlStartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startService(serviceIntent);
+                Toast.makeText(MainActivity.this, "started", Toast.LENGTH_SHORT).show();
 
-    //MyService myService = null;
+                bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+                Toast.makeText(MainActivity.this, "bound", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        aidlStopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopService(serviceIntent);
+                Toast.makeText(MainActivity.this, "stopped", Toast.LENGTH_SHORT).show();
+
+                if(binder != null){
+                    unbindService(serviceConnection);
+                    Toast.makeText(MainActivity.this, "unbind", Toast.LENGTH_SHORT).show();
+                    binder = null;
+
+                }
+
+            }
+        });
+
+        syncBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(binder != null){
+                    try{
+                        binder.setData(et.getText().toString());
+                        Toast.makeText(MainActivity.this, "sync", Toast.LENGTH_SHORT).show();
+                        } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+//    public void StartOnClick(View v){
+//        startService(serviceIntent);
+//        Toast.makeText(MainActivity.this, "start", Toast.LENGTH_SHORT).show();
+//
+//        bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+//        Toast.makeText(MainActivity.this, "bound", Toast.LENGTH_SHORT).show();
+//
+//    }
+//
+//    public void StopOnClick(View v){
+//        stopService(serviceIntent);
+//        Toast.makeText(MainActivity.this, "service stopped", Toast.LENGTH_SHORT).show();
+//        if(binder != null) {
+//            unbindService(serviceConnection);
+//            binder = null;
+//            wasBound = false;
+//            Toast.makeText(MainActivity.this, "service disconnected", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
+//    public void SyncOnClick(View v){
+//        if(binder!=null){
+//            try{
+//                binder.setData(et.getText().toString());
+//                Toast.makeText(MainActivity.this, "synchronized", Toast.LENGTH_SHORT).show();
+//            }catch(RemoteException e){
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
     boolean wasBound;   // флег, чи законекчені сервіс і актівіті
 
 
@@ -98,8 +181,6 @@ public class MainActivity extends Activity {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
 
-           // MyService.MyBinder binder = (MyService.MyBinder) service;
-            //myService = binder.getService();
             Toast.makeText(MainActivity.this, "Service connected", Toast.LENGTH_SHORT).show();
             wasBound = true;
 
@@ -113,12 +194,33 @@ public class MainActivity extends Activity {
         }
     };
 
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder mService) {
+            System.out.println("Connected"+mService);
+            binder = IMyAidlInterface.Stub.asInterface(mService);
+           // aidlService  = AIDLService.Stub.asInterface(mService);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+           // aidlService = null;
+
+        }
+    };  IMyAidlInterface binder = null;
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if(wasBound) {
             unbindService(connection);
             wasBound = false;
+        }
+        if (binder != null){
+            unbindService(serviceConnection);
+            binder = null;
         }
     }
 }
